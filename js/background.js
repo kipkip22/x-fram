@@ -167,38 +167,3 @@ var responseListener = function (details) {
   };
 };
 
-/*Reload settings*/
-var reload = function () {
-  console.info("reload");
-  chrome.storage.local.get(DefaultSettings,
-    function (result) {
-      exposedHeaders = result.exposedHeaders;
-      console.info("get localStorage", result);
-
-      /*Remove Listeners*/
-      chrome.webRequest.onHeadersReceived.removeListener(responseListener);
-      chrome.webRequest.onBeforeSendHeaders.removeListener(requestListener);
-
-      if (result.active) {
-        chrome.browserAction.setIcon({
-          path: 'images/on.png'
-        });
-
-        if (result.urls.length) {
-          /*Add Listeners*/
-          chrome.webRequest.onHeadersReceived.addListener(responseListener, {
-            urls: result.urls
-          }, ['blocking', 'responseHeaders']);
-
-          chrome.webRequest.onBeforeSendHeaders.addListener(requestListener, {
-            urls: result.urls
-          }, ['blocking', 'requestHeaders']);
-        }
-      } else {
-        chrome.browserAction.setIcon({
-          path: 'images/off.png'
-        });
-      }
-    });
-};
-
