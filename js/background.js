@@ -202,18 +202,3 @@ var reload = function () {
     });
 };
 
-/*On install*/
-chrome.runtime.onInstalled.addListener(function (details) {
-  console.log('previousVersion', JSON.stringify(details, null, 2));
-
-  chrome.storage.local.set({
-    'active': true
-  });
-  chrome.storage.local.set({
-    'urls': ['*://*/*']
-  });
-  chrome.storage.local.set({
-    'exposedHeaders': ''
-  });
-  reload();
-});
