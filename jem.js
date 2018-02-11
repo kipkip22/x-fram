@@ -1,6 +1,6 @@
-$(document).ready(function() {
+($(document).ready(function() {
 	beer()
-});
+}));
 
 function beer() {
 var config = {
